@@ -4,7 +4,6 @@ import com.example.tacocloud.model.Ingredient;
 import com.example.tacocloud.model.Ingredient.Type;
 import com.example.tacocloud.model.Taco;
 import com.example.tacocloud.model.TacoOrder;
-import com.example.tacocloud.model.udt.TacoUDT;
 import com.example.tacocloud.repository.IngredientRepository;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
@@ -14,11 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
 
 @Slf4j
@@ -28,6 +23,7 @@ import java.util.stream.StreamSupport;
 public class DesignTacoController {
 
     private final IngredientRepository ingredientRepository;
+
 
     @Autowired
     public DesignTacoController(IngredientRepository ingredientRepository) {
@@ -63,12 +59,12 @@ public class DesignTacoController {
     }
 
     @PostMapping
-    public String processTaco(@Valid TacoUDT taco, Errors errors, @ModelAttribute TacoOrder tacoOrder) {
+    public String processTaco(@Valid Taco taco, Errors errors, @ModelAttribute TacoOrder tacoOrder) {
         if (errors.hasErrors()) {
             return "design";
         }
-
         tacoOrder.addTaco(taco);
+
         log.info("Processing taco: {}", taco);
 
         return "redirect:/orders/current";

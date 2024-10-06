@@ -1,20 +1,12 @@
 spring:
   application:
         name: taco-cloud
-
   datasource:
-        generate-unique-name: false
-        name: tacocloud
-#  cassandra:
-#    keyspace-name: taco_Cloud
-#    schema-action: recreate
-#    local-datacenter: datacenter1
-#    username: tacocloud
-#    password: s3cr3tP455w0rd
+    url: jdbc:postgresql://localhost:5432/taco-cloud
+    username: gusainov
+    password: 8889893567
   data:
       mongodb:
-        host: mongodb.tacocloud.com
+        host: localhost
         port: 27017
-        username: tacocloud
-        password: s3cr3tp455w0rd
         database: tacoclouddb

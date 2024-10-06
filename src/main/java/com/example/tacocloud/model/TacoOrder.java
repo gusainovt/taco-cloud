@@ -1,6 +1,5 @@
 package com.example.tacocloud.model;
 
-import com.example.tacocloud.model.udt.TacoUDT;
 import jakarta.validation.constraints.Digits;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
@@ -14,7 +13,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 @Data
-@Document
+@Document("Taco_Order")
 public class TacoOrder implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -48,9 +47,9 @@ public class TacoOrder implements Serializable {
     @Digits(integer=3, fraction = 0, message = "Invalid CW")
     private String ccCVV;
 
-    private List<TacoUDT> tacos = new ArrayList<>();
+    private List<Taco> tacos = new ArrayList<>();
 
-    public void addTaco(TacoUDT taco) {
+    public void addTaco(Taco taco) {
         this.tacos.add(taco);
     }
 
