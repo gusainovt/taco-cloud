@@ -1,4 +1,7 @@
 spring:
+  jpa:
+    hibernate:
+      ddl-auto: update
   application:
         name: taco-cloud
   datasource:
@@ -10,3 +13,15 @@ spring:
         host: localhost
         port: 27017
         database: tacoclouddb
+#  security:
+#    oauth2:
+#      client:
+#        registration:
+##          <oauth2 or openid provider name>:
+##            client-id: <client id>
+##            client-secret: <client secret>
+##            scope: <comma-separated list of requested scopes>
+#          facebook:
+#            client-id: <facebook client id>
+#            client-secret: <facebook client secret>
+#            scope: email, public_profile

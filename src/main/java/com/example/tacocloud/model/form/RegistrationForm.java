@@ -1,4 +1,4 @@
-package com.example.tacocloud.form;
+package com.example.tacocloud.model.form;
 
 import com.example.tacocloud.model.User;
 import lombok.Data;

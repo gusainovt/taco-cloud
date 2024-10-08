@@ -2,15 +2,11 @@ package com.example.tacocloud;
 
 import com.example.tacocloud.model.Ingredient;
 import com.example.tacocloud.model.Ingredient.Type;
-import com.example.tacocloud.model.User;
 import com.example.tacocloud.repository.IngredientRepository;
-import com.example.tacocloud.repository.UserRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 @SpringBootApplication
 public class TacoCloudApplication {
@@ -34,15 +30,5 @@ public class TacoCloudApplication {
 			repo.save(new Ingredient("SRCR", "Sour Cream", Type.SAUCE));
 		};
 	}
-
-	@Bean
-	public UserDetailsService userDetailsService(UserRepository userRepository) {
-		return username -> {
-			User user = userRepository.findByUsername(username);
-			if(user != null) return user;
-			throw new UsernameNotFoundException("User '" + username + "' not found");
-		};
-	}
-
 
 }
