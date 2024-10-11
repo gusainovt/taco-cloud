@@ -21,4 +21,15 @@ public class UserServiceImpl implements com.example.tacocloud.service.UserServic
     public User createUser(User user) {
         return userRepository.save(user);
     }
+
+
+    /**
+     * Find user by username
+     * @param username Username
+     * @return {@link User}
+     */
+    @Override
+    public User getUserByUsername(String username) {
+        return userRepository.findByUsername(username);
+    }
 }

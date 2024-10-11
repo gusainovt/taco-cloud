@@ -17,7 +17,7 @@ public class OrderServiceImpl implements com.example.tacocloud.service.OrderServ
 
     /**
      * Search for a taco order by its ID.
-     * @param id Search for a taco order by its ID.
+     * @param id Order ID.
      * @return {@link TacoOrder}
      */
     @Override
