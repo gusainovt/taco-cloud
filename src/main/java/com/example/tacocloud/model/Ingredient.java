@@ -1,20 +1,23 @@
 package com.example.tacocloud.model;
 
-import lombok.AccessLevel;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
+
 
 @Data
-@Document(collection = "ingredients")
+@Entity
 @AllArgsConstructor
-@NoArgsConstructor(access = AccessLevel.PRIVATE,force = true)
+@NoArgsConstructor
 public class Ingredient {
 
     @Id
-    private String id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     private String name;
 

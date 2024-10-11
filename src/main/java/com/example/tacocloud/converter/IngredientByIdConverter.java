@@ -7,7 +7,7 @@ import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 
 @Component
-public class IngredientByIdConverter implements Converter<String, Ingredient> {
+public class IngredientByIdConverter implements Converter<Long, Ingredient> {
     private final IngredientRepository ingredientRepository;
 
     @Autowired
@@ -16,12 +16,12 @@ public class IngredientByIdConverter implements Converter<String, Ingredient> {
     }
 
     @Override
-    public Ingredient convert(String id) {
+    public Ingredient convert(Long id) {
         return ingredientRepository.findById(id).orElse(null);
     }
 
     @Override
-    public <U> Converter<String, U> andThen(Converter<? super Ingredient, ? extends U> after) {
+    public <U> Converter<Long, U> andThen(Converter<? super Ingredient, ? extends U> after) {
         return Converter.super.andThen(after);
     }
 }

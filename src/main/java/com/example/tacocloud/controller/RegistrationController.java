@@ -1,7 +1,7 @@
 package com.example.tacocloud.controller;
 
 import com.example.tacocloud.model.form.RegistrationForm;
-import com.example.tacocloud.repository.UserRepository;
+import com.example.tacocloud.service.UserService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,12 +12,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/register")
 public class RegistrationController {
 
-    private UserRepository userRepository;
-    private PasswordEncoder passwordEncoder;
+    private final UserService userService;
+    private final PasswordEncoder passwordEncoder;
 
-    public RegistrationController(UserRepository userRepository,
+    public RegistrationController(UserService userService,
                                   PasswordEncoder passwordEncoder) {
-        this.userRepository = userRepository;
+        this.userService = userService;
         this.passwordEncoder = passwordEncoder;
     }
 
@@ -28,7 +28,7 @@ public class RegistrationController {
 
     @PostMapping
     public String processRegistration(RegistrationForm form) {
-        userRepository.save(form.toUser(passwordEncoder));
+        userService.createUser(form.toUser(passwordEncoder));
         return "redirect:/login";
     }
 
