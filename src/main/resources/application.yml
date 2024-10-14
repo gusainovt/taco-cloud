@@ -20,7 +20,6 @@ logging:
     root: WARN
     org.springframework.security: DEBUG
 
-greeting:
-  welcome: You are using ${spring.application.name}
-
-taco.orders.pageSize: 10
+taco:
+  orders:
+    pageSize: 10
