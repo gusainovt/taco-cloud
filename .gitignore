@@ -35,4 +35,4 @@ build/
 /mvnw.cmd
 /.mvn
 /out
-/src/main/resources/META-INF/MANIFEST.MF
+/var/logs/spring.log

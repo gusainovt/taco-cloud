@@ -2,9 +2,25 @@ spring:
   jpa:
     hibernate:
       ddl-auto: update
+
   application:
         name: taco-cloud
+
   datasource:
     url: jdbc:postgresql://localhost:5432/taco-cloud
     username: gusainov
     password: 8889893567
+
+  liquibase.change-log: classpath:liquibase/changelog-master.yml
+
+logging:
+  file:
+    path: var/logs/
+  level:
+    root: WARN
+    org.springframework.security: DEBUG
+
+greeting:
+  welcome: You are using ${spring.application.name}
+
+taco.orders.pageSize: 10

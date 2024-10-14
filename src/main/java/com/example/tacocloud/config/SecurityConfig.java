@@ -33,15 +33,12 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         return http.authorizeHttpRequests(
                 authz -> authz
-                        .requestMatchers("/design", "/orders/**").hasRole("USER")
+                        .requestMatchers("/design", "/orders", "/orders/current").hasRole("USER")
                         .requestMatchers(HttpMethod.POST,"/admin/**").hasRole("ADMIN")
                         .requestMatchers("/", "/**").permitAll())
                 .formLogin(form -> form
                         .loginPage("/login")
                         .defaultSuccessUrl("/design", true))
-//                .oauth2Login(oauth2 -> oauth2
-//                        .loginPage("/login")
-//                        .defaultSuccessUrl("/design", true))
                 .logout(logout -> logout.logoutSuccessUrl("/"))
                 .build();
     }
