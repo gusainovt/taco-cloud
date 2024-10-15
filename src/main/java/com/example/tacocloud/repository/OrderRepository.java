@@ -1,19 +1,14 @@
 package com.example.tacocloud.repository;
 
 import com.example.tacocloud.model.TacoOrder;
-import org.springframework.data.repository.CrudRepository;
+import com.example.tacocloud.model.User;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
-import java.util.Date;
 import java.util.List;
 
-public interface OrderRepository extends CrudRepository<TacoOrder, String> {
-    List<TacoOrder> findByDeliveryZip(String deliveryZip);
-
-    List<TacoOrder> readTacoOrdersByDeliveryZipAndPlacedAtBetween(String delivetyZip, Date startDate, Date endDate);
-
-    List<TacoOrder> findByDeliveryStreetAndDeliveryCityAllIgnoreCase(String deliveryStreet, String deliveryCity);
-
-    List<TacoOrder> findByDeliveryCityOrderByDeliveryStreet(String city);
-
-
+@Repository
+public interface OrderRepository extends JpaRepository<TacoOrder, Long> {
+    List<TacoOrder> findByUserOrderByPlacedAtDesc (User user, PageRequest pageable);
 }

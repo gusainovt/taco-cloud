@@ -1,26 +1,27 @@
 package com.example.tacocloud.model;
 
-import com.example.tacocloud.model.udt.TacoUDT;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.Digits;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 import lombok.Data;
 import org.hibernate.validator.constraints.CreditCardNumber;
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 @Data
-@Document
+@Entity
+@Table(name = "taco_orders")
 public class TacoOrder implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     @Id
-    private String id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     private Date placedAt = new Date();
 
@@ -48,9 +49,14 @@ public class TacoOrder implements Serializable {
     @Digits(integer=3, fraction = 0, message = "Invalid CW")
     private String ccCVV;
 
-    private List<TacoUDT> tacos = new ArrayList<>();
+    @ManyToMany(targetEntity = Taco.class)
+    @NotNull
+    private List<Taco> tacos = new ArrayList<>();
 
-    public void addTaco(TacoUDT taco) {
+    @ManyToOne
+    private User user;
+
+    public void addTaco(Taco taco) {
         this.tacos.add(taco);
     }
 

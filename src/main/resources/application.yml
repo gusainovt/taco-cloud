@@ -1,20 +1,38 @@
 spring:
+  jpa:
+    hibernate:
+      ddl-auto: update
+
   application:
         name: taco-cloud
 
   datasource:
-        generate-unique-name: false
-        name: tacocloud
-#  cassandra:
-#    keyspace-name: taco_Cloud
-#    schema-action: recreate
-#    local-datacenter: datacenter1
-#    username: tacocloud
-#    password: s3cr3tP455w0rd
-  data:
-      mongodb:
-        host: mongodb.tacocloud.com
-        port: 27017
-        username: tacocloud
-        password: s3cr3tp455w0rd
-        database: tacoclouddb
+    url: jdbc:postgresql://localhost:5432/taco-cloud
+    username: gusainov
+    password: 8889893567
+
+  liquibase.change-log: classpath:liquibase/changelog-master.yml
+
+logging:
+  file:
+    path: var/logs/
+  level:
+    root: WARN
+    org.springframework.security: DEBUG
+
+taco:
+  orders:
+    pageSize: 10
+
+---
+spring:
+  profiles: test
+
+  datasource:
+    url: jdbc:mysql://localhost/tacocloud
+    username: tacouser
+    password: tacopassword
+
+logging:
+      level:
+        tacos: WARN

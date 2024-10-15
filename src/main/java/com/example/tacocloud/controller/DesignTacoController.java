@@ -4,8 +4,7 @@ import com.example.tacocloud.model.Ingredient;
 import com.example.tacocloud.model.Ingredient.Type;
 import com.example.tacocloud.model.Taco;
 import com.example.tacocloud.model.TacoOrder;
-import com.example.tacocloud.model.udt.TacoUDT;
-import com.example.tacocloud.repository.IngredientRepository;
+import com.example.tacocloud.service.IngredientService;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,37 +13,26 @@ import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
-import java.util.stream.StreamSupport;
-
 @Slf4j
 @Controller
 @RequestMapping("/design")
 @SessionAttributes("tacoOrder")
 public class DesignTacoController {
 
-    private final IngredientRepository ingredientRepository;
-
+    private final IngredientService ingredientService;
     @Autowired
-    public DesignTacoController(IngredientRepository ingredientRepository) {
-        this.ingredientRepository = ingredientRepository;
+    public DesignTacoController(IngredientService ingredientService) {
+        this.ingredientService = ingredientService;
     }
-
 
     @ModelAttribute
     public void addIngredientsModel(Model model) {
-        Iterable<Ingredient> ingredients = ingredientRepository.findAll();
+        Iterable<Ingredient> ingredients = ingredientService.getAll();
         Type[] types = Ingredient.Type.values();
         for (Type type : types) {
             model.addAttribute(type.toString().toLowerCase(),
-                    filterByType(ingredients, type));
-
+                    ingredientService.filterByType(ingredients, type));
         }
-
     }
 
     @ModelAttribute(name = "tacoOrder")
@@ -63,20 +51,12 @@ public class DesignTacoController {
     }
 
     @PostMapping
-    public String processTaco(@Valid TacoUDT taco, Errors errors, @ModelAttribute TacoOrder tacoOrder) {
+    public String processTaco(@Valid Taco taco, Errors errors, @ModelAttribute("tacoOrder") TacoOrder tacoOrder) {
         if (errors.hasErrors()) {
             return "design";
         }
-
         tacoOrder.addTaco(taco);
         log.info("Processing taco: {}", taco);
-
         return "redirect:/orders/current";
-    }
-    private Iterable<Ingredient> filterByType(Iterable<Ingredient> ingredients, Type type) {
-        return StreamSupport
-                .stream(ingredients.spliterator(),false)
-                .filter(x -> x.getType().equals(type))
-                .collect(Collectors.toList());
     }
 }
