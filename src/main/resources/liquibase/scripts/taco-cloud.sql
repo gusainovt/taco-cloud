@@ -9,7 +9,7 @@ create table if not exists ingredients (
 create table if not exists tacos (
     id serial primary key,
     name varchar(50) not null,
-    createdAt timestamp not null
+    create_at timestamp not null
 );
 create table if not exists taco_orders (
     id serial primary key,
@@ -21,7 +21,7 @@ create table if not exists taco_orders (
     ccNumber varchar(16) not null,
     ccExpiration varchar(5) not null,
     ccCVV varchar(3) not null,
-    placedAt timestamp not null
+    placed_at timestamp not null
 );
 create table if not exists users (
     id serial primary key,

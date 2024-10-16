@@ -35,4 +35,4 @@ build/
 /mvnw.cmd
 /.mvn
 /out
-/var/logs/spring.log
+/var/

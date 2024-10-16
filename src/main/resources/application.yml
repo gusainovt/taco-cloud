@@ -23,16 +23,3 @@ logging:
 taco:
   orders:
     pageSize: 10
-
----
-spring:
-  profiles: test
-
-  datasource:
-    url: jdbc:mysql://localhost/tacocloud
-    username: tacouser
-    password: tacopassword
-
-logging:
-      level:
-        tacos: WARN
